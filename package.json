@@ -37,6 +37,14 @@
   "engines": {
     "node": ">=14.2.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arlac77/SymatemOntology.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arlac77/SymatemOntology/issues"
+  },
+  "homepage": "https://github.com/arlac77/SymatemOntology#readme",
   "template": {
     "inheritFrom": [
       "arlac77/template-arlac77-github",
