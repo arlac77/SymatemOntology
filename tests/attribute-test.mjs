@@ -9,5 +9,9 @@ test("type", async t => {
 
   ///writer.setTriple([s1, a1, 12], true);
 
-  t.is(backend.declareType("t1"), "");
+  t.truthy(backend.declareType(recordingNamespace, "t1"));
+  t.is(
+    backend.declareType(recordingNamespace, "t1"),
+    backend.declareType(recordingNamespace, "t1")
+  );
 });
