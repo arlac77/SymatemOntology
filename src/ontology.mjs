@@ -4,5 +4,9 @@ export function SymatemOntologyMixin(base) {
       super.initPredefinedSymbols();
       this.registerNamespaces({ Query: ["xxx"] });
     }
+
+    declareType(name) {
+
+    }
   };
 }
