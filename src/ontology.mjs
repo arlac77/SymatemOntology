@@ -1,3 +1,5 @@
+import { SymbolInternals, RelocationTable, Diff } from "SymatemJS";
+
 export function SymatemOntologyMixin(base) {
   return class SymatemOntologyMixin extends base {
     initPredefinedSymbols() {
@@ -5,8 +7,14 @@ export function SymatemOntologyMixin(base) {
       this.registerNamespaces({ Query: ["has", "isa"] });
     }
 
-    declareType(ns, name) {
-      const { A } = this.placeholders(ns, { A: name });
+    createContect() {
+      return new InitializationContext(this);
+    }
+
+    removeContext() {}
+
+    declareType(ic, name) {
+      const { A } = this.placeholders(ic.tmpNamespace, { A: name });
 
       for (const result of this.query([
         [A, this.symbolByName.isa, this.symbolByName.Type]
@@ -14,10 +22,38 @@ export function SymatemOntologyMixin(base) {
         return result.get("A");
       }
 
-      const s = this.createSymbol(ns);
+      const s = this.createSymbol(ic.recordingNamespace);
       this.setData(s, name);
       this.setTriple([s, this.symbolByName.isa, this.symbolByName.Type], true);
       return s;
     }
   };
+}
+
+class InitializationContext {
+  constructor(backend) {
+    const repositoryNamespace = SymbolInternals.identityOfSymbol(
+      backend.createSymbol(backend.metaNamespaceIdentity)
+    );
+    const modalNamespace = SymbolInternals.identityOfSymbol(
+      backend.createSymbol(backend.metaNamespaceIdentity)
+    );
+    const recordingNamespace = SymbolInternals.identityOfSymbol(
+      backend.createSymbol(backend.metaNamespaceIdentity)
+    );
+
+    const rt = RelocationTable.create();
+    RelocationTable.set(rt, recordingNamespace, modalNamespace);
+
+    const writer = new Diff(backend, repositoryNamespace, rt);
+
+    Object.defineProperties(this, {
+      backend: { value: backend },
+      writer: { value: writer },
+      repositoryNamespace: { value: repositoryNamespace },
+      modalNamespace: { value: modalNamespace },
+      recordingNamespace: { value: recordingNamespace },
+      tmpNamespace: { value: recordingNamespace } // ??
+    });
+  }
 }
