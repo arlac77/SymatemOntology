@@ -27,6 +27,26 @@ export function SymatemOntologyMixin(base) {
       this.setTriple([s, this.symbolByName.isa, this.symbolByName.Type], true);
       return s;
     }
+
+    /**
+     * Creates a triples with associated data.
+     * But only if there are no such triples already
+     */
+    registerTriples(ic, triples) {
+
+      for (const result of this.query(triples)) {
+        return;
+      }
+
+
+      if (s === undefined) {
+        s = this.createSymbol(ns);
+        this.setData(s, data);
+        this.setTriple([s, attribute, value], true);
+      }
+
+      return s;
+    }
   };
 }
 
