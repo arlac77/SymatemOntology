@@ -32,11 +32,8 @@ export function SymatemOntologyMixin(base) {
      * Creates a triples with associated data.
      * But only if there are no such triples already
      */
-    link(ic, queries, initial=new Map()) {
-
-      const query = queries[0].map(s =>
-        initial.get(s) ? initial.get(s) : s
-      );
+    * link(ic, queries, initial = new Map()) {
+      const query = queries[0].map(s => (initial.get(s) ? initial.get(s) : s));
 
       const isPlaceholder = query.map(s => this.isPlaceholder(s));
       const mask = this.queryMasks[
@@ -48,17 +45,11 @@ export function SymatemOntologyMixin(base) {
         found = true;
       }
 
-      if(!found) {
+      if (!found) {
         this.setTriple(query, true);
-      }
 
-      if (s === undefined) {
-        s = this.createSymbol(ns);
-        this.setData(s, data);
-        this.setTriple([s, attribute, value], true);
+        yield query;
       }
-
-      return s;
     }
   };
 }
