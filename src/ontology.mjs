@@ -46,9 +46,20 @@ export function SymatemOntologyMixin(base) {
       }
 
       if (!found) {
-        this.setTriple(query, true);
+        const triple = query.map((s,i) => {
+          if(isPlaceholder[i]) {
+            const data = this.getLiteralData(s);
+            s = this.createSymbol(ic.recordingNamespace);
+            if(data !== undefined) {
+              this.setData(s, data);
+            }
+          }
+          return s;
+        });
 
-        yield query;
+        this.setTriple(triple, true);
+
+        yield triple;
       }
     }
   };
