@@ -43,6 +43,7 @@ export function SymatemOntologyMixin(base) {
       let found = false;
       for (const r of this.queryTriples(mask, query)) {
         found = true;
+        break;
       }
 
       if (!found) {

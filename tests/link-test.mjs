@@ -1,7 +1,7 @@
 import test from "ava";
 import { prepareBackend } from "./helpers/util.mjs";
 
-test("link", async t => {
+test("simple link", async t => {
   const { backend, ic, a1, s1 } = await prepareBackend({
     a: 1,
     s: 1
