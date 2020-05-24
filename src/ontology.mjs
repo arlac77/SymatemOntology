@@ -15,21 +15,12 @@ export function SymatemOntologyMixin(base) {
 
     declareType(ic, name) {
       const { A } = this.placeholders(ic.tmpNamespace, { A: name });
-
-      for (const result of this.query([
-        [A, this.symbolByName.isa, this.symbolByName.Type]
-      ])) {
-        return result.get("A");
-      }
-
-      const s = this.createSymbol(ic.recordingNamespace);
-      this.setData(s, name);
-      this.setTriple([s, this.symbolByName.isa, this.symbolByName.Type], true);
-      return s;
+      const result = this.link(ic,[[A, this.symbolByName.isa, this.symbolByName.Type]]);
+      return result[0];
     }
 
     /**
-     * Creates a triples with associated data.
+     * Creates triples with associated data.
      * But only if there are no such triples already
      */
     link(ic, queries, initial = new Map()) {
