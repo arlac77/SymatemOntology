@@ -27,6 +27,7 @@ export function SymatemOntologyMixin(base) {
      */
     link(ic, queries) {
       if (queries.length === 0) {
+        return [];
       }
 
       const query = queries[0];
@@ -37,7 +38,7 @@ export function SymatemOntologyMixin(base) {
       ];
 
       for (const r of this.queryTriples(mask, query)) {
-        return [r];
+        return [r, ...this.link(ic, queries.slice(1))];
       }
 
       const triple = query.map((s, i) => {
@@ -53,7 +54,7 @@ export function SymatemOntologyMixin(base) {
 
       this.setTriple(triple, true);
 
-      return [triple];
+      return [triple, ...this.link(ic, queries.slice(1))];
     }
   };
 }

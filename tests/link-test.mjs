@@ -31,7 +31,7 @@ test("link two symbols one data", async t => {
   t.is(backend.getData(result[0][1]), "xyz");
 });
 
-test.skip("link several", async t => {
+test("link several", async t => {
   const { backend, ic, s1, s2, s3 } = await prepareBackend({
     s: 3
   });
@@ -47,5 +47,8 @@ test.skip("link several", async t => {
   ]);
 
   t.is(result[0][0], s1);
-  t.is(backend.getData(result[0][1]), "xyz");
+  t.is(result[0][1], s2);
+  t.is(result[1][1], s3);
+
+  t.is(backend.getData(result[1][2]), "xyz");
 });
