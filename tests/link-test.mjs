@@ -9,9 +9,9 @@ test("simple link", async t => {
 
   const { A } = backend.placeholders(ic.tmpNamespace, { A: "xyz" });
 
-  const results = [...backend.link(ic, [[s1, a1, A]])];
+  const result = backend.link(ic, [[s1, a1, A]]);
 
-  t.is(results[0][0], s1);
-  t.is(results[0][1], a1);
-  t.is(backend.getData(results[0][2]), "xyz");
+  t.is(result[0], s1);
+  t.is(result[1], a1);
+  t.is(backend.getData(result[2]), "xyz");
 });

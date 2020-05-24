@@ -32,7 +32,7 @@ export function SymatemOntologyMixin(base) {
      * Creates a triples with associated data.
      * But only if there are no such triples already
      */
-    * link(ic, queries, initial = new Map()) {
+    link(ic, queries, initial = new Map()) {
       const query = queries[0].map(s => (initial.get(s) ? initial.get(s) : s));
 
       const isPlaceholder = query.map(s => this.isPlaceholder(s));
@@ -40,28 +40,24 @@ export function SymatemOntologyMixin(base) {
         isPlaceholder.map(f => (f ? "V" : "M")).join("")
       ];
 
-      let found = false;
       for (const r of this.queryTriples(mask, query)) {
-        found = true;
-        break;
+        return r;
       }
 
-      if (!found) {
-        const triple = query.map((s,i) => {
-          if(isPlaceholder[i]) {
-            const data = this.getLiteralData(s);
-            s = this.createSymbol(ic.recordingNamespace);
-            if(data !== undefined) {
-              this.setData(s, data);
-            }
+      const triple = query.map((s,i) => {
+        if(isPlaceholder[i]) {
+          const data = this.getLiteralData(s);
+          s = this.createSymbol(ic.recordingNamespace);
+          if(data !== undefined) {
+            this.setData(s, data);
           }
-          return s;
-        });
+        }
+        return s;
+      });
 
-        this.setTriple(triple, true);
+      this.setTriple(triple, true);
 
-        yield triple;
-      }
+      return triple;
     }
   };
 }
