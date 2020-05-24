@@ -15,16 +15,21 @@ export function SymatemOntologyMixin(base) {
 
     declareType(ic, name) {
       const { A } = this.placeholders(ic.tmpNamespace, { A: name });
-      const result = this.link(ic,[[A, this.symbolByName.isa, this.symbolByName.Type]]);
-      return result[0];
+      const result = this.link(ic, [
+        [A, this.symbolByName.isa, this.symbolByName.Type]
+      ]);
+      return result[0][0];
     }
 
     /**
      * Creates triples with associated data.
      * But only if there are no such triples already
      */
-    link(ic, queries, initial = new Map()) {
-      const query = queries[0].map(s => (initial.get(s) ? initial.get(s) : s));
+    link(ic, queries) {
+      if (queries.length === 0) {
+      }
+
+      const query = queries[0];
 
       const isPlaceholder = query.map(s => this.isPlaceholder(s));
       const mask = this.queryMasks[
@@ -32,14 +37,14 @@ export function SymatemOntologyMixin(base) {
       ];
 
       for (const r of this.queryTriples(mask, query)) {
-        return r;
+        return [r];
       }
 
-      const triple = query.map((s,i) => {
-        if(isPlaceholder[i]) {
+      const triple = query.map((s, i) => {
+        if (isPlaceholder[i]) {
           const data = this.getLiteralData(s);
           s = this.createSymbol(ic.recordingNamespace);
-          if(data !== undefined) {
+          if (data !== undefined) {
             this.setData(s, data);
           }
         }
@@ -48,7 +53,7 @@ export function SymatemOntologyMixin(base) {
 
       this.setTriple(triple, true);
 
-      return triple;
+      return [triple];
     }
   };
 }
