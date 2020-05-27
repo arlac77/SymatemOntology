@@ -8,8 +8,7 @@
   "type": "module",
   "main": "./src/ontology.mjs",
   "exports": {
-    ".": "./src/ontology.mjs",
-    "./": "./"
+    ".": "./src/ontology.mjs"
   },
   "description": "ontology within Symatem",
   "contributors": [
