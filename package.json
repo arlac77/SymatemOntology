@@ -49,6 +49,265 @@
       "arlac77/template-arlac77-github",
       "arlac77/template-esm-only",
       "arlac77/template-node-component"
+    ],
+    "inheridFrom": [
+      "arlac77/template-github",
+      "arlac77/template-semantic-release"
+    ],
+    "properties": {
+      "node_version": "12.18.3",
+      "ava": {
+        "options": "--timeout 2m"
+      }
+    },
+    "mergers": [
+      {
+        "type": "Package",
+        "pattern": "package.json",
+        "options": {
+          "messagePrefix": "",
+          "expand": true,
+          "mergeHints": {},
+          "actions": [],
+          "keywords": {
+            "auth-provider": "auth-provider",
+            "repository-provider.+": "repository-provider",
+            "interceptor.+": "kronos-interceptor",
+            "service-": "kronos-service"
+          },
+          "optionalDevDependencies": [
+            "cracks",
+            "dont-crack"
+          ]
+        },
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "type": "Readme",
+        "pattern": "README.md",
+        "options": {
+          "messagePrefix": "",
+          "expand": true,
+          "mergeHints": {},
+          "badges": [
+            {
+              "name": "npm",
+              "icon": "https://img.shields.io/npm/v/@symatem/ontology.svg",
+              "url": "https://www.npmjs.com/package/@symatem/ontology",
+              "order": 0.1
+            },
+            {
+              "name": "License",
+              "icon": "https://img.shields.io/badge/License-BSD%203--Clause-blue.svg",
+              "url": "https://opensource.org/licenses/BSD-3-Clause",
+              "order": 0.11
+            },
+            {
+              "name": "install size",
+              "icon": "https://packagephobia.now.sh/badge?p=@symatem/ontology/@{{version}}",
+              "url": "https://packagephobia.now.sh/result?p=@symatem/ontology@{{version}}",
+              "order": 0.12
+            },
+            {
+              "name": "minified size",
+              "icon": "https://badgen.net/bundlephobia/min/@symatem/ontology",
+              "url": "https://bundlephobia.com/result?p=@symatem/ontology",
+              "order": 0.13
+            },
+            {
+              "name": "downloads",
+              "icon": "http://img.shields.io/npm/dm/@symatem/ontology.svg?style=flat-square",
+              "url": "https://npmjs.org/package/@symatem/ontology",
+              "order": 0.14
+            },
+            {
+              "name": "Build Status",
+              "icon": "https://travis-ci.com/arlac77/SymatemOntology.svg?branch=master",
+              "url": "https://travis-ci.com/arlac77/SymatemOntology",
+              "order": 0.2
+            },
+            {
+              "name": "Coverage Status",
+              "icon": "https://coveralls.io/repos/arlac77/SymatemOntology/badge.svg",
+              "url": "https://coveralls.io/r/arlac77/SymatemOntology",
+              "order": 0.41
+            },
+            {
+              "name": "Styled with prettier",
+              "icon": "https://img.shields.io/badge/styled_with-prettier-ff69b4.svg",
+              "url": "https://github.com/prettier/prettier",
+              "order": 0.3
+            },
+            {
+              "name": "Commitizen friendly",
+              "icon": "https://img.shields.io/badge/commitizen-friendly-brightgreen.svg",
+              "url": "http://commitizen.github.io/cz-cli/",
+              "order": 0.31
+            },
+            {
+              "name": "Known Vulnerabilities",
+              "icon": "https://snyk.io/test/github/arlac77/SymatemOntology/badge.svg",
+              "url": "https://snyk.io/test/github/arlac77/SymatemOntology",
+              "order": 0.32
+            },
+            {
+              "name": "Maintainability",
+              "icon": "https://api.codeclimate.com/v1/badges/{{id}}/maintainability",
+              "url": "https://codeclimate.com/github/arlac77/SymatemOntology/maintainability",
+              "order": 0.33
+            },
+            {
+              "name": "semantic-release",
+              "icon": "https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg",
+              "url": "https://github.com/arlac77/SymatemOntology.git",
+              "order": 0.21
+            }
+          ]
+        },
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "type": "License",
+        "pattern": "LICENSE",
+        "enabled": true,
+        "options": {
+          "messagePrefix": "chore(license): ",
+          "expand": true,
+          "mergeHints": {}
+        },
+        "priority": 1
+      },
+      {
+        "type": "MergeLineSet",
+        "pattern": ".gitignore",
+        "options": {
+          "messagePrefix": "chore(git): ",
+          "expand": true,
+          "mergeHints": {
+            "*": {}
+          },
+          "trailingNewline": true,
+          "defaultIgnore": [
+            ""
+          ]
+        },
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "type": "MergeLineSet",
+        "pattern": ".npmignore",
+        "options": {
+          "messagePrefix": "chore(npm): ",
+          "expand": true,
+          "mergeHints": {
+            "*": {}
+          },
+          "trailingNewline": true,
+          "defaultIgnore": [
+            "",
+            ".*.swp",
+            "._*",
+            ".DS_Store",
+            ".git",
+            ".hg",
+            ".npmrc",
+            ".lock-wscript",
+            ".svn",
+            ".wafpickle-*",
+            "config.gypi",
+            "CVS",
+            "npm-debug.log"
+          ]
+        },
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "type": "ReplaceIfEmpty",
+        "pattern": "**/*",
+        "enabled": true,
+        "options": {
+          "messagePrefix": "",
+          "expand": true,
+          "mergeHints": {}
+        },
+        "priority": 0.1
+      },
+      {
+        "type": "Travis",
+        "pattern": ".travis.yml",
+        "enabled": true,
+        "options": {
+          "messagePrefix": "chore(travis): ",
+          "expand": true,
+          "mergeHints": {
+            "*": {
+              "scope": "travis",
+              "removeEmpty": true
+            },
+            "": {
+              "orderBy": [
+                "dist",
+                "os",
+                "language",
+                "addons",
+                "python",
+                "php",
+                "rvm",
+                "node_js",
+                "env",
+                "install",
+                "jobs",
+                "before_script",
+                "after_script",
+                "script",
+                "branches",
+                "notifications"
+              ]
+            },
+            "*node_js": {},
+            "jobs.include": {
+              "key": "stage",
+              "orderBy": [
+                "test",
+                "doc",
+                "release"
+              ]
+            }
+          },
+          "yaml": {
+            "lineWith": 128
+          }
+        },
+        "priority": 1
+      },
+      {
+        "type": "YAML",
+        "pattern": ".github/workflows/*.yml",
+        "options": {
+          "messagePrefix": "chore(actions): ",
+          "expand": true,
+          "mergeHints": {
+            "*": {
+              "removeEmpty": true
+            },
+            "*.matrix.node-version": {
+              "scope": "deps"
+            },
+            "*.steps": {
+              "key": "id|name|uses|run"
+            }
+          },
+          "yaml": {
+            "lineWith": 128
+          }
+        },
+        "enabled": true,
+        "priority": 1
+      }
     ]
   }
 }
