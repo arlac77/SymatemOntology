@@ -25,7 +25,7 @@
     "lint": "documentation lint ./src/ontology.mjs"
   },
   "dependencies": {
-    "@symatem/query": "^3.1.1"
+    "@symatem/query": "^3.1.4"
   },
   "devDependencies": {
     "ava": "^3.13.0",

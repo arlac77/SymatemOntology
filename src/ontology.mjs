@@ -1,4 +1,4 @@
-import { SymbolInternals, RelocationTable, Diff } from "SymatemJS";
+import { SymbolInternals, RelocationTable, Diff } from "@symatem/core";
 
 export function SymatemOntologyMixin(base) {
   return class SymatemOntologyMixin extends base {

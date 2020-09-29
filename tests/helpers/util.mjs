@@ -1,6 +1,6 @@
 import {
   RustWasmBackend
-} from "SymatemJS";
+} from "@symatem/core";
 
 import { SymatemQueryMixin } from "@symatem/query";
 import { SymatemOntologyMixin } from "@symatem/ontology";
